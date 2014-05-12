@@ -3,7 +3,6 @@
  */
 package br.com.easii.problem;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,14 +14,11 @@ import br.com.easii.enums.PosicaoDoBarco;
  */
 public class Estado {
 	
-	private int missionarios;
-	private int canibais;
+	private Integer missionarios;
+	private Integer canibais;
 	private PosicaoDoBarco posicaoDoBarco;
 	private Estado estadoPai;
-	private int custo;
-	private List<Estado> fronteira;
-	private List<Estado> visitados = new ArrayList<>();
-	
+	private Integer custo;
 	
 	/**
 	 * @param missionarios
@@ -31,16 +27,16 @@ public class Estado {
 	 * @param estadoPai
 	 * @param custo
 	 */
-	public Estado(int missionarios, int canibais,
-			PosicaoDoBarco posicaoDoBarco, Estado estadoPai, int custo) {
+	public Estado(Integer missionarios, Integer canibais,
+			PosicaoDoBarco posicaoDoBarco, Estado estadoPai, Integer custo) {
 		super();
 		this.missionarios = missionarios;
 		this.canibais = canibais;
 		this.posicaoDoBarco = posicaoDoBarco;
 		this.estadoPai = estadoPai;
 		this.custo = custo;
-		this.fronteira = null;
 	}
+	
 	
 	/**
 	 * @return the missionarios
@@ -114,20 +110,6 @@ public class Estado {
 	}
 
 	/**
-	 * @return the fronteira
-	 */
-	public List<Estado> getFronteira() {
-		return fronteira;
-	}
-
-	/**
-	 * @param fronteira the fronteira to set
-	 */
-	public void setFronteira(List<Estado> fronteira) {
-		this.fronteira = fronteira;
-	}
-
-	/**
 	 * @return True se o objetivo foi atingido e False se não
 	 */
 	public boolean isCompleted(){
@@ -184,5 +166,9 @@ public class Estado {
 		}
 		
 		return fronteira;
+	}
+	
+	public Estado getClone(Estado estado) {
+		return new Estado(estado.getMissionarios(), estado.getCanibais(), estado.getPosicaoDoBarco(), estado.getEstadoPai(), null);
 	}
 }
