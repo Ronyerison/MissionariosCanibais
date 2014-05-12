@@ -3,6 +3,8 @@
  */
 package br.com.easii.problem;
 
+import java.util.List;
+
 import br.com.easii.enums.PosicaoDoBarco;
 
 /**
@@ -14,17 +16,27 @@ public class Estado {
 	private int missionarios;
 	private int canibais;
 	private PosicaoDoBarco posicaoDoBarco;
+	private Estado estadoPai;
+	private int custo;
+	private List<Estado> fronteira;
+	
 	
 	/**
 	 * @param missionarios
 	 * @param canibais
 	 * @param posicaoDoBarco
+	 * @param estadoPai
+	 * @param custo
 	 */
-	public Estado(int missionarios, int canibais, PosicaoDoBarco posicaoDoBarco) {
+	public Estado(int missionarios, int canibais,
+			PosicaoDoBarco posicaoDoBarco, Estado estadoPai, int custo) {
 		super();
 		this.missionarios = missionarios;
 		this.canibais = canibais;
 		this.posicaoDoBarco = posicaoDoBarco;
+		this.estadoPai = estadoPai;
+		this.custo = custo;
+		this.fronteira = null;
 	}
 	
 	/**
@@ -33,42 +45,85 @@ public class Estado {
 	public int getMissionarios() {
 		return missionarios;
 	}
-	
+
 	/**
 	 * @param missionarios the missionarios to set
 	 */
 	public void setMissionarios(int missionarios) {
 		this.missionarios = missionarios;
 	}
-	
+
+
 	/**
 	 * @return the canibais
 	 */
 	public int getCanibais() {
 		return canibais;
 	}
-	
+
 	/**
 	 * @param canibais the canibais to set
 	 */
 	public void setCanibais(int canibais) {
 		this.canibais = canibais;
 	}
-	
+
 	/**
 	 * @return the posicaoDoBarco
 	 */
 	public PosicaoDoBarco getPosicaoDoBarco() {
 		return posicaoDoBarco;
 	}
-	
+
 	/**
 	 * @param posicaoDoBarco the posicaoDoBarco to set
 	 */
 	public void setPosicaoDoBarco(PosicaoDoBarco posicaoDoBarco) {
 		this.posicaoDoBarco = posicaoDoBarco;
 	}
-	
+
+	/**
+	 * @return the estadoPai
+	 */
+	public Estado getEstadoPai() {
+		return estadoPai;
+	}
+
+	/**
+	 * @param estadoPai the estadoPai to set
+	 */
+	public void setEstadoPai(Estado estadoPai) {
+		this.estadoPai = estadoPai;
+	}
+
+	/**
+	 * @return the custo
+	 */
+	public int getCusto() {
+		return custo;
+	}
+
+	/**
+	 * @param custo the custo to set
+	 */
+	public void setCusto(int custo) {
+		this.custo = custo;
+	}
+
+	/**
+	 * @return the fronteira
+	 */
+	public List<Estado> getFronteira() {
+		return fronteira;
+	}
+
+	/**
+	 * @param fronteira the fronteira to set
+	 */
+	public void setFronteira(List<Estado> fronteira) {
+		this.fronteira = fronteira;
+	}
+
 	/**
 	 * @return True se o objetivo foi atingido e False se não
 	 */
@@ -88,5 +143,29 @@ public class Estado {
 			return true;
 		}
 		
+	}
+	
+	public void expandir(){
+		Estado novoEstado;
+		novoEstado = Movimentacao.moverUmMissionario(this);
+		if(novoEstado.isValid()){
+			this.fronteira.add(novoEstado);
+		}
+		novoEstado = Movimentacao.moverDoisMissionarios(this);
+		if(novoEstado.isValid()){
+			this.fronteira.add(novoEstado);
+		}
+		novoEstado = Movimentacao.moverUmCanibal(this);
+		if(novoEstado.isValid()){
+			this.fronteira.add(novoEstado);
+		}
+		novoEstado = Movimentacao.moverDoisCanibais(this);
+		if(novoEstado.isValid()){
+			this.fronteira.add(novoEstado);
+		}
+		novoEstado = Movimentacao.moverUmDeCada(this);
+		if(novoEstado.isValid()){
+			this.fronteira.add(novoEstado);
+		}
 	}
 }
