@@ -171,4 +171,16 @@ public class Estado {
 	public Estado getClone(Estado estado) {
 		return new Estado(estado.getMissionarios(), estado.getCanibais(), estado.getPosicaoDoBarco(), estado.getEstadoPai(), null);
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Estado estado = (Estado) obj;
+		if(this.getCanibais() == estado.getCanibais() && 
+				this.getMissionarios() == estado.getMissionarios() &&
+				this.getPosicaoDoBarco().equals(estado.getPosicaoDoBarco()) &&
+				this.getEstadoPai().equals(estado.getEstadoPai())){
+			return true;
+		}
+		return false;
+	}
 }
