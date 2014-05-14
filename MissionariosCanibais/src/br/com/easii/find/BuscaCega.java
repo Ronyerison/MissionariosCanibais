@@ -47,10 +47,9 @@ public class BuscaCega {
 	}
 		
 	public Estado buscaEmProfundidade(){
-		Estado estado = null;
-		
 		/*TODO: Implementar o metodo busca em profundidade */
-		return estado;
+		
+		return null;
 	}
 	
 	public Estado buscaEmLargura(){
