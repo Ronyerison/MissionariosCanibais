@@ -10,16 +10,16 @@ import br.com.easii.enums.PosicaoDoBarco;
 
 /**
  * @author Ronyerison
- *
+ * 
  */
 public class Estado {
-	
+
 	private Integer missionarios;
 	private Integer canibais;
 	private PosicaoDoBarco posicaoDoBarco;
 	private Estado estadoPai;
 	private Integer custo;
-	
+
 	/**
 	 * @param missionarios
 	 * @param canibais
@@ -36,8 +36,7 @@ public class Estado {
 		this.estadoPai = estadoPai;
 		this.custo = custo;
 	}
-	
-	
+
 	/**
 	 * @return the missionarios
 	 */
@@ -46,12 +45,12 @@ public class Estado {
 	}
 
 	/**
-	 * @param missionarios the missionarios to set
+	 * @param missionarios
+	 *            the missionarios to set
 	 */
 	public void setMissionarios(int missionarios) {
 		this.missionarios = missionarios;
 	}
-
 
 	/**
 	 * @return the canibais
@@ -61,7 +60,8 @@ public class Estado {
 	}
 
 	/**
-	 * @param canibais the canibais to set
+	 * @param canibais
+	 *            the canibais to set
 	 */
 	public void setCanibais(int canibais) {
 		this.canibais = canibais;
@@ -75,7 +75,8 @@ public class Estado {
 	}
 
 	/**
-	 * @param posicaoDoBarco the posicaoDoBarco to set
+	 * @param posicaoDoBarco
+	 *            the posicaoDoBarco to set
 	 */
 	public void setPosicaoDoBarco(PosicaoDoBarco posicaoDoBarco) {
 		this.posicaoDoBarco = posicaoDoBarco;
@@ -89,7 +90,8 @@ public class Estado {
 	}
 
 	/**
-	 * @param estadoPai the estadoPai to set
+	 * @param estadoPai
+	 *            the estadoPai to set
 	 */
 	public void setEstadoPai(Estado estadoPai) {
 		this.estadoPai = estadoPai;
@@ -103,7 +105,8 @@ public class Estado {
 	}
 
 	/**
-	 * @param custo the custo to set
+	 * @param custo
+	 *            the custo to set
 	 */
 	public void setCusto(int custo) {
 		this.custo = custo;
@@ -112,75 +115,85 @@ public class Estado {
 	/**
 	 * @return True se o objetivo foi atingido e False se não
 	 */
-	public boolean isCompleted(){
-		if(this.missionarios == 0 && this.canibais == 0 && this.posicaoDoBarco == PosicaoDoBarco.DIREITA){
+	public boolean isCompleted() {
+		if (this.missionarios == 0 && this.canibais == 0
+				&& this.posicaoDoBarco == PosicaoDoBarco.DIREITA) {
 			return true;
 		}
 		return false;
 	}
-	
-	
+
 	/**
-	 * @return True se a quantidade de missionarios em cada margem é maior 
-	 * ou igual a quantidade de canibais
+	 * @return True se a quantidade de missionarios em cada margem é maior ou
+	 *         igual a quantidade de canibais
 	 */
-	public boolean isValid(){
-		if(this.canibais > this.missionarios && this.missionarios != 0){
+	public boolean isValid() {
+		if (this.canibais > this.missionarios && this.missionarios != 0) {
 			return false;
-		}else if((3 - this.canibais) > (3 - this.missionarios) && (3 - this.missionarios) != 0){
+		} else if ((3 - this.canibais) > (3 - this.missionarios)
+				&& (3 - this.missionarios) != 0) {
 			return false;
-		}else if(this.missionarios < 0 || this.canibais < 0){
+		} else if (this.missionarios < 0 || this.canibais < 0) {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
-		
+
 	}
-	
-	
+
 	/**
-	 * @return Lista dos possiveis estados a serem expandidos para o estado atual
+	 * @return Lista dos possiveis estados a serem expandidos para o estado
+	 *         atual
 	 */
-	public List<Estado> expandir(){
+	public List<Estado> expandir() {
 		Estado novoEstado;
 		List<Estado> fronteira = new LinkedList<>();
 		novoEstado = Movimentacao.moverUmMissionario(this);
-		if(novoEstado.isValid()){
+		if (novoEstado.isValid()) {
 			fronteira.add(novoEstado);
 		}
 		novoEstado = Movimentacao.moverDoisMissionarios(this);
-		if(novoEstado.isValid()){
+		if (novoEstado.isValid()) {
 			fronteira.add(novoEstado);
 		}
 		novoEstado = Movimentacao.moverUmCanibal(this);
-		if(novoEstado.isValid()){
+		if (novoEstado.isValid()) {
 			fronteira.add(novoEstado);
 		}
 		novoEstado = Movimentacao.moverDoisCanibais(this);
-		if(novoEstado.isValid()){
+		if (novoEstado.isValid()) {
 			fronteira.add(novoEstado);
 		}
 		novoEstado = Movimentacao.moverUmDeCada(this);
-		if(novoEstado.isValid()){
+		if (novoEstado.isValid()) {
 			fronteira.add(novoEstado);
 		}
-		
+
 		return fronteira;
 	}
-	
+
 	public Estado getClone(Estado estado) {
-		return new Estado(estado.getMissionarios(), estado.getCanibais(), estado.getPosicaoDoBarco(), estado.getEstadoPai(), null);
+		return new Estado(estado.getMissionarios(), estado.getCanibais(),
+				estado.getPosicaoDoBarco(), estado.getEstadoPai(), null);
 	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		Estado estado = (Estado) obj;
-		if(this.getCanibais() == estado.getCanibais() && 
-				this.getMissionarios() == estado.getMissionarios() &&
-				this.getPosicaoDoBarco().equals(estado.getPosicaoDoBarco()) &&
-				this.getEstadoPai().equals(estado.getEstadoPai())){
-			return true;
+
+	public boolean isEqual(Estado est) {
+		boolean result = false;
+		Estado atual = this.getClone(this);
+
+		if (atual.getCanibais() == est.getCanibais()
+				&& atual.getMissionarios() == est.getMissionarios()
+				&& atual.getPosicaoDoBarco().equals(est.getPosicaoDoBarco())) {
+			result = true;
+			if(atual.getEstadoPai() != null && est.getEstadoPai() != null){
+				return atual.getEstadoPai().isEqual(est.getEstadoPai());
+			}else if(atual.getEstadoPai() == null && est.getEstadoPai() == null){
+				return true;
+			}else{
+				result = false;
+			}
 		}
-		return false;
+
+		return result;
 	}
 }
