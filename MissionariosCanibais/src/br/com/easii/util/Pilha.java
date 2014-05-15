@@ -15,7 +15,9 @@ public class Pilha extends EstruturaDeDados{
 		this.getObjetos().remove(this.getObjetos().size()-1);
 	}
 	
-//	top -> retorna o ultimo elemento inserido sem removê-lo
+	/**
+	 * @return retorna o ultimo elemento inserido sem removê-lo
+	 */
 	public Object top(){
 		return this.getObjetos().get(this.getObjetos().size()-1);
 	}
