@@ -135,7 +135,9 @@ public class Estado {
 			return false;
 		} else if (this.missionarios < 0 || this.canibais < 0) {
 			return false;
-		} else {
+		} else if(this.missionarios > 3 || this.canibais > 3){
+			return false;
+		}else{
 			return true;
 		}
 
@@ -178,22 +180,25 @@ public class Estado {
 	}
 
 	public boolean isEqual(Estado est) {
-		boolean result = false;
 		Estado atual = this.getClone(this);
-
 		if (atual.getCanibais() == est.getCanibais()
 				&& atual.getMissionarios() == est.getMissionarios()
 				&& atual.getPosicaoDoBarco().equals(est.getPosicaoDoBarco())) {
-			result = true;
-			if(atual.getEstadoPai() != null && est.getEstadoPai() != null){
-				return atual.getEstadoPai().isEqual(est.getEstadoPai());
-			}else if(atual.getEstadoPai() == null && est.getEstadoPai() == null){
-				return true;
-			}else{
-				result = false;
-			}
+			return true;
 		}
 
-		return result;
+		return false;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Estado [missionarios=" + missionarios + ", canibais="
+				+ canibais + ", posicaoDoBarco=" + posicaoDoBarco + ", custo="
+				+ custo + "]";
+	}
+	
+	
 }
