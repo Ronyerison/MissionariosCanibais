@@ -3,6 +3,7 @@
  */
 package br.com.easii.find;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,13 +27,10 @@ public class BuscaCega {
 	 * @param estadoInicial
 	 * @param fronteira
 	 */
-	public BuscaCega(Estado estadoInicial, EstruturaDeDados fronteira) {
+	public BuscaCega(Estado estadoInicial) {
 		this.estadoInicial = estadoInicial;
 		this.estadoAtual = estadoInicial;
-		this.fronteira = fronteira;
-		this.fronteira.inserir(this.estadoAtual);
 		this.visitados = new LinkedList<Estado>();
-		this.visitados.add(this.estadoAtual.getClone(this.estadoAtual));
 	}
 
 	/**
@@ -55,21 +53,25 @@ public class BuscaCega {
 	public Solution buscaEmProfundidade(){
 		this.estadoAtual = this.estadoInicial;
 		this.fronteira = new Pilha();
-		List<Estado> aux = new LinkedList<Estado>();
+		List<Estado> aux = new ArrayList<Estado>();
+		this.fronteira.inserir(estadoAtual);
 		do{
+			if(this.fronteira.vazia()){
+				return null;
+			}
 			if(estadoAtual.isCompleted()){
 				return new Solution(estadoAtual);
 			}else{
 				aux = estadoAtual.expandir();
-				((Pilha) this.fronteira.getObjetos()).remover();
+				this.visitados.add(estadoAtual);
+				this.fronteira.remover();
 				for (Estado e : aux) {
 					if(!testarVisitados(e)){
 						this.fronteira.inserir(e);
 					}
 				}
-				this.visitados.add(estadoAtual);
 			}
-			estadoAtual = (Estado) ((Pilha) fronteira.getObjetos()).top();
+			estadoAtual = (Estado) ((Pilha) fronteira).top();
 		}while(!estadoAtual.isCompleted());
 		
 		return new Solution(estadoAtual);
@@ -81,21 +83,22 @@ public class BuscaCega {
 	public Solution buscaEmLargura(){
 		this.estadoAtual = this.estadoInicial;
 		this.fronteira = new Fila();
-		List<Estado> aux = new LinkedList<Estado>();
+		List<Estado> aux = new ArrayList<Estado>();
 		do{
 			if(estadoAtual.isCompleted()){
 				return new Solution(estadoAtual);
 			}else{
 				aux = estadoAtual.expandir();
-				((Fila) this.fronteira.getObjetos()).remover();
+				this.visitados.add(estadoAtual);
+				this.fronteira.remover();
 				for (Estado e : aux) {
 					if(!testarVisitados(e)){
 						this.fronteira.inserir(e);
 					}
 				}
-				this.visitados.add(estadoAtual);
+				
 			}
-			estadoAtual = (Estado) fronteira.getObjetos().get(0);
+			estadoAtual = (Estado)((Fila) this.fronteira).primeiroElemento();
 		}while(!estadoAtual.isCompleted());
 		
 		return new Solution(estadoAtual);
@@ -106,8 +109,8 @@ public class BuscaCega {
 	 * @return verifica se o estado ja esta na lista de visitados
 	 */
 	public boolean testarVisitados(Estado estado){
-		for (Estado e : this.visitados) {
-			if(e.equals(estado)){
+		for (Estado es : this.visitados) {
+			if(es.isEqual(estado)){
 				return true;
 			}
 		}

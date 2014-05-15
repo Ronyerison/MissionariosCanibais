@@ -1,10 +1,10 @@
 package br.com.easii.util;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class EstruturaDeDados{
-	private List<Object> objetos = new LinkedList<Object>();
+	private List<Object> objetos = new ArrayList<Object>();
 	
 	public void inserir(Object objeto) {
 		this.objetos.add(objeto);
