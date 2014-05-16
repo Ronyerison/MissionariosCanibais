@@ -3,8 +3,8 @@
  */
 package br.com.easii.problem;
 
-import java.util.LinkedList;
-import java.util.List;
+import br.com.easii.util.EstruturaDeDados;
+import br.com.easii.util.Pilha;
 
 /**
  * @author Ronyerison
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Solution {
 	private Estado estadoFinal;
-	private List<Estado> caminho;
+	private EstruturaDeDados caminho;
 	private Estado estadoInicial;
 	
 	
@@ -26,18 +26,18 @@ public class Solution {
 	public Solution(Estado estadoFinal) {
 		super();
 		this.estadoFinal = estadoFinal;
-		getCaminho();
+		gerarCaminho();
 	}
 	
 	
 	/**
 	 * Guarda todos os estados até o estado final encontrado
 	 */
-	public void getCaminho() {
+	public void gerarCaminho() {
 		Estado estado = this.estadoFinal;
-		this.caminho = new LinkedList<Estado>();
+		this.caminho = new Pilha();
 		while(estado != null){
-			this.caminho.add(estado);
+			this.caminho.inserir(estado);;
 			this.estadoInicial = estado;
 			estado = estado.getEstadoPai();
 		}
@@ -72,11 +72,31 @@ public class Solution {
 	}
 
 	/**
+	 * @return the caminho
+	 */
+	public EstruturaDeDados getCaminho() {
+		return caminho;
+	}
+
+
+	/**
 	 * @param caminho the caminho to set
 	 */
-	public void setCaminho(List<Estado> caminho) {
+	public void setCaminho(EstruturaDeDados caminho) {
 		this.caminho = caminho;
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Solution [estadoFinal=" + estadoFinal + ", estadoInicial=" + estadoInicial
+				+ ", caminho=" + caminho + "]";
+	}
+	
+	
 	
 	
 }
