@@ -22,7 +22,7 @@ public class Pilha extends EstruturaDeDados{
 	/**
 	 * @return retorna o ultimo elemento inserido sem removê-lo
 	 */
-	public Object top(){
+	public Estado top(){
 		return this.getObjetos().get(getObjetos().size()-1);
 	}
 }

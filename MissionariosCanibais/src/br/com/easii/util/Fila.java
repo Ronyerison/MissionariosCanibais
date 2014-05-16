@@ -20,6 +20,6 @@ public class Fila extends EstruturaDeDados{
 	}
 	
 	public Estado primeiroElemento(){
-		return (Estado) this.getObjetos().get(0);
+		return this.getObjetos().get(0);
 	}
 }
