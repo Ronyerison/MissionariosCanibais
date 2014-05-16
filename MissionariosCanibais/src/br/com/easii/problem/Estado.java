@@ -12,7 +12,7 @@ import br.com.easii.enums.PosicaoDoBarco;
  * @author Ronyerison
  * 
  */
-public class Estado {
+public class Estado implements Comparable<Estado>{
 
 	private Integer missionarios;
 	private Integer canibais;
@@ -198,6 +198,17 @@ public class Estado {
 		return "Estado [missionarios=" + missionarios + ", canibais="
 				+ canibais + ", posicaoDoBarco=" + posicaoDoBarco + ", custo="
 				+ custo + "]";
+	}
+
+	@Override
+	public int compareTo(Estado o) {
+		if(this.getMissionarios() < o.getMissionarios()){
+			return -1;
+		}else if(this.getMissionarios() > o.getMissionarios()){
+			return 1;
+		}else{
+			return 0;
+		}
 	}
 	
 	
