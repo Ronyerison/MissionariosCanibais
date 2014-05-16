@@ -84,7 +84,11 @@ public class BuscaCega {
 		this.estadoAtual = this.estadoInicial;
 		this.fronteira = new Fila();
 		List<Estado> aux = new ArrayList<Estado>();
+		this.fronteira.inserir(estadoAtual);
 		do{
+			if(this.fronteira.vazia()){
+				return null;
+			}
 			if(estadoAtual.isCompleted()){
 				return new Solution(estadoAtual);
 			}else{
@@ -98,7 +102,7 @@ public class BuscaCega {
 				}
 				
 			}
-			estadoAtual = (Estado)((Fila) this.fronteira).primeiroElemento();
+			estadoAtual = ((Fila) this.fronteira).primeiroElemento();
 		}while(!estadoAtual.isCompleted());
 		
 		return new Solution(estadoAtual);

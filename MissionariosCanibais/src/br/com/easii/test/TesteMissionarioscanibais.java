@@ -11,6 +11,7 @@ import org.junit.Test;
 import br.com.easii.enums.PosicaoDoBarco;
 import br.com.easii.find.BuscaCega;
 import br.com.easii.problem.Estado;
+import br.com.easii.problem.Solution;
 import br.com.easii.util.EstruturaDeDados;
 import br.com.easii.util.Fila;
 import br.com.easii.util.Pilha;
@@ -33,8 +34,11 @@ public class TesteMissionarioscanibais {
 	@Test
 	public void testBuscaEmProfundidade() {
 		Estado estado1 = new Estado(3, 3, PosicaoDoBarco.ESQUERDA, null, 0);
+		Estado estadofinal = new Estado(0, 0, PosicaoDoBarco.DIREITA, null, 0);
 		BuscaCega buscaCega = new BuscaCega(estado1);
-		buscaCega.buscaEmProfundidade();
+		Solution solution = buscaCega.buscaEmProfundidade();
+		boolean result = estadofinal.isEqual(solution.getEstadoFinal());
+		Assert.assertEquals(true, result);
 //		EstruturaDeDados dados = new Pilha();
 //		dados.inserir(1);
 //		dados.inserir(2);
@@ -42,5 +46,15 @@ public class TesteMissionarioscanibais {
 //		Assert.assertEquals(3, ((Pilha)dados).top());
 //		dados.remover();
 //		Assert.assertEquals(2, ((Pilha)dados).top());
+	}
+	
+	@Test
+	public void testBuscaEmLargura() {
+		Estado estado1 = new Estado(3, 3, PosicaoDoBarco.ESQUERDA, null, 0);
+		Estado estadofinal = new Estado(0, 0, PosicaoDoBarco.DIREITA, null, 0);
+		BuscaCega buscaCega = new BuscaCega(estado1);
+		Solution solution = buscaCega.buscaEmLargura();
+		boolean result = estadofinal.isEqual(solution.getEstadoFinal());
+		Assert.assertEquals(true, result);
 	}
 }
