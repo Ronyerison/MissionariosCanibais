@@ -195,9 +195,13 @@ public class Estado implements Comparable<Estado>{
 	 */
 	@Override
 	public String toString() {
-		return "Estado [missionarios=" + missionarios + ", canibais="
-				+ canibais + ", posicaoDoBarco=" + posicaoDoBarco + ", custo="
-				+ custo + "]";
+		String string = "";
+		
+		string = "Estado\n MIS = " + missionarios + " CAN = "+ canibais;
+		string += (posicaoDoBarco == PosicaoDoBarco.ESQUERDA)?" ESQUERDA\t\t\t": "\t\t\tDIREITA ";
+		string += " MIS = "+(3-missionarios) + " CAN = " +(3-canibais) +"\n" ;
+		
+		return string;
 	}
 
 	@Override

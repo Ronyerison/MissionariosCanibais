@@ -96,7 +96,15 @@ public class Solution {
 				+ ", caminho=" + caminho + "]";
 	}
 	
-	
+	public String mostraCaminho(){
+		EstruturaDeDados caminho = this.caminho;
+		String string = "";
+		while(!caminho.vazia()){
+			string += ((Pilha)caminho).top().toString();
+			caminho.remover();
+		}
+		return string;
+	}
 	
 	
 }
