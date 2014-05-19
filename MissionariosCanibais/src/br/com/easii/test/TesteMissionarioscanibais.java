@@ -3,8 +3,6 @@
  */
 package br.com.easii.test;
 
-import static org.junit.Assert.*;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,9 +11,6 @@ import br.com.easii.find.AEstrela;
 import br.com.easii.find.BuscaCega;
 import br.com.easii.problem.Estado;
 import br.com.easii.problem.Solution;
-import br.com.easii.util.EstruturaDeDados;
-import br.com.easii.util.Fila;
-import br.com.easii.util.Pilha;
 
 /**
  * @author Ronyerison

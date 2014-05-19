@@ -3,8 +3,6 @@
  */
 package br.com.easii.util;
 
-import java.util.LinkedList;
-
 import br.com.easii.problem.Estado;
 
 /**
