@@ -211,5 +211,14 @@ public class Estado implements Comparable<Estado>{
 		}
 	}
 	
+	public int compareAEstrela(Estado o) {
+		if(this.getMissionarios()+this.getCusto() < o.getMissionarios()+o.getCusto()){
+			return -1;
+		}else if(this.getMissionarios()+this.getCusto() > o.getMissionarios()+o.getCusto()){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
 	
 }

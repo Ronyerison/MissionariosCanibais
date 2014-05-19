@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.com.easii.enums.PosicaoDoBarco;
+import br.com.easii.find.AEstrela;
 import br.com.easii.find.BuscaCega;
 import br.com.easii.problem.Estado;
 import br.com.easii.problem.Solution;
@@ -54,6 +55,16 @@ public class TesteMissionarioscanibais {
 		Estado estadofinal = new Estado(0, 0, PosicaoDoBarco.DIREITA, null, 0);
 		BuscaCega buscaCega = new BuscaCega(estado1);
 		Solution solution = buscaCega.buscaEmLargura();
+		boolean result = estadofinal.isEqual(solution.getEstadoFinal());
+		Assert.assertEquals(true, result);
+	}
+	
+	@Test
+	public void testBuscaAEstrela() {
+		Estado estado1 = new Estado(3, 3, PosicaoDoBarco.ESQUERDA, null, 0);
+		Estado estadofinal = new Estado(0, 0, PosicaoDoBarco.DIREITA, null, 0);
+		AEstrela aEstrela = new AEstrela(estado1);
+		Solution solution = aEstrela.execute();
 		boolean result = estadofinal.isEqual(solution.getEstadoFinal());
 		Assert.assertEquals(true, result);
 	}
