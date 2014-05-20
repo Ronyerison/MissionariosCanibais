@@ -1,25 +1,15 @@
 package br.com.easii.view;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import java.awt.BorderLayout;
-
-import javax.swing.JTextArea;
-import javax.swing.JSpinner;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JScrollBar;
-import javax.swing.JTabbedPane;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
-import sun.util.BuddhistCalendar;
 import br.com.easii.enums.PosicaoDoBarco;
 import br.com.easii.find.AEstrela;
 import br.com.easii.find.BuscaCega;
