@@ -8,6 +8,9 @@ import br.com.easii.problem.Estado;
 public abstract class EstruturaDeDados{
 	private List<Estado> objetos = new ArrayList<Estado>();
 	
+	public Integer size(){
+		return objetos.size();
+	}
 	public void inserir(Estado objeto) {
 		this.objetos.add(objeto);
 	}

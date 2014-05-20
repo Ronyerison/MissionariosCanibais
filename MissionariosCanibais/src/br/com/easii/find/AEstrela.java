@@ -21,6 +21,7 @@ public class AEstrela {
 	private List<Estado> visitados;
 	private Estado estadoInicial;
 	private Estado estadoAtual;
+	private Integer maxFrontSize;
 	
 	/**
 	 * @param estadoInicial
@@ -31,6 +32,7 @@ public class AEstrela {
 		this.estadoAtual = estadoInicial;
 		this.fronteira = new LinkedList<Estado>();
 		this.visitados = new LinkedList<Estado>();
+		this.maxFrontSize = 0;
 	}
 
 	public Solution execute(){
@@ -41,7 +43,7 @@ public class AEstrela {
 				return null;
 			}
 			if(estadoAtual.isCompleted()){
-				return new Solution(estadoAtual);
+				return new Solution(estadoAtual,visitados.size(), maxFrontSize);
 			}else{
 				aux = estadoAtual.expandir();
 				this.visitados.add(estadoAtual);
@@ -50,6 +52,10 @@ public class AEstrela {
 					if(!testarVisitados(e)){
 						this.fronteira.add(e);
 					}
+				}
+				
+				if(this.fronteira.size() > this.maxFrontSize){
+					this.maxFrontSize = this.fronteira.size();
 				}
 			}
 			
@@ -64,7 +70,7 @@ public class AEstrela {
 		
 		}while(!estadoAtual.isCompleted());
 		
-		return new Solution(estadoAtual);
+		return new Solution(estadoAtual,visitados.size(), maxFrontSize);
 	}
 	
 	/**

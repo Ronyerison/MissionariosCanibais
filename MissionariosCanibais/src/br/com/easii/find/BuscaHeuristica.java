@@ -21,6 +21,7 @@ public class BuscaHeuristica {
 	private List<Estado> visitados;
 	private Estado estadoInicial;
 	private Estado estadoAtual;
+	private Integer maxFrontSize;
 
 	/**
 	 * @param estadoInicial
@@ -31,6 +32,7 @@ public class BuscaHeuristica {
 		this.estadoAtual = estadoInicial;
 		this.visitados = new LinkedList<Estado>();
 		this.fronteira = new ArrayList<Estado>();
+		this.maxFrontSize = 0;
 	}
 
 	public Solution execute(){
@@ -41,7 +43,7 @@ public class BuscaHeuristica {
 				return null;
 			}
 			if(estadoAtual.isCompleted()){
-				return new Solution(estadoAtual);
+				return new Solution(estadoAtual, visitados.size(), maxFrontSize);
 			}else{
 				aux = estadoAtual.expandir();
 				this.visitados.add(estadoAtual);
@@ -50,6 +52,10 @@ public class BuscaHeuristica {
 					if(!testarVisitados(e)){
 						this.fronteira.add(e);
 					}
+				}
+				
+				if(this.fronteira.size() > this.maxFrontSize){
+					this.maxFrontSize = this.fronteira.size();
 				}
 			}
 			
@@ -64,7 +70,7 @@ public class BuscaHeuristica {
 		
 		}while(!estadoAtual.isCompleted());
 		
-		return new Solution(estadoAtual);
+		return new Solution(estadoAtual,visitados.size(), maxFrontSize);
 	}
 	
 	/**
@@ -134,6 +140,20 @@ public class BuscaHeuristica {
 	 */
 	public void setEstadoAtual(Estado estadoAtual) {
 		this.estadoAtual = estadoAtual;
+	}
+
+	/**
+	 * @return the maxFrontSize
+	 */
+	public Integer getMaxFrontSize() {
+		return maxFrontSize;
+	}
+
+	/**
+	 * @param maxFrontSize the maxFrontSize to set
+	 */
+	public void setMaxFrontSize(Integer maxFrontSize) {
+		this.maxFrontSize = maxFrontSize;
 	}
 	
 	

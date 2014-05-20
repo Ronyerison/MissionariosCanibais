@@ -197,9 +197,9 @@ public class Estado implements Comparable<Estado>{
 	public String toString() {
 		String string = "";
 		
-		string = "Estado\n MIS = " + missionarios + " CAN = "+ canibais;
-		string += (posicaoDoBarco == PosicaoDoBarco.ESQUERDA)?" ESQUERDA\t\t\t": "\t\t\tDIREITA ";
-		string += " MIS = "+(3-missionarios) + " CAN = " +(3-canibais) +"\n" ;
+		string = "\nMIS = " + missionarios + " CAN = "+ canibais;
+		string += (posicaoDoBarco == PosicaoDoBarco.ESQUERDA)?"  | ESQUERDA                 ": "                       DIREITA |  ";
+		string += "MIS = "+(3-missionarios) + " CAN = " +(3-canibais) +"\n" ;
 		
 		return string;
 	}

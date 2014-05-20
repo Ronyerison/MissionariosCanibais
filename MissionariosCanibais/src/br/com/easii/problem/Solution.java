@@ -18,14 +18,16 @@ public class Solution {
 	private Estado estadoFinal;
 	private EstruturaDeDados caminho;
 	private Estado estadoInicial;
+	private Integer countVisitados;
+	private Integer maxFrontSize;
 	
 	
-	/**
-	 * @param estadoFinal
-	 */
-	public Solution(Estado estadoFinal) {
+	
+	public Solution(Estado estadoFinal, Integer countVisitados, Integer maxFrontSize) {
 		super();
 		this.estadoFinal = estadoFinal;
+		this.countVisitados = countVisitados;
+		this.maxFrontSize = maxFrontSize;
 		gerarCaminho();
 	}
 	
@@ -78,14 +80,40 @@ public class Solution {
 		return caminho;
 	}
 
-
 	/**
 	 * @param caminho the caminho to set
 	 */
 	public void setCaminho(EstruturaDeDados caminho) {
 		this.caminho = caminho;
 	}
+	
+	/**
+	 * @return the countVisitados
+	 */
+	public Integer getCountVisitados() {
+		return countVisitados;
+	}
 
+	/**
+	 * @param countVisitados the countVisitados to set
+	 */
+	public void setCountVisitados(Integer countVisitados) {
+		this.countVisitados = countVisitados;
+	}
+
+	/**
+	 * @return the maxFrontSize
+	 */
+	public Integer getMaxFrontSize() {
+		return maxFrontSize;
+	}
+
+	/**
+	 * @param maxFrontSize the maxFrontSize to set
+	 */
+	public void setMaxFrontSize(Integer maxFrontSize) {
+		this.maxFrontSize = maxFrontSize;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -103,6 +131,8 @@ public class Solution {
 			string += ((Pilha)caminho).top().toString();
 			caminho.remover();
 		}
+		string += "\nQuant nós visitados = " + countVisitados +
+				"\nQuant Max Fronteira = " + maxFrontSize;
 		return string;
 	}
 	

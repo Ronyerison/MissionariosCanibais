@@ -22,6 +22,7 @@ public class BuscaCega {
 	private List<Estado> visitados;
 	private Estado estadoInicial;
 	private Estado estadoAtual;
+	private Integer maxFrontSize;
 	
 	/**
 	 * @param estadoInicial
@@ -31,6 +32,7 @@ public class BuscaCega {
 		this.estadoInicial = estadoInicial;
 		this.estadoAtual = estadoInicial;
 		this.visitados = new LinkedList<Estado>();
+		this.maxFrontSize = 0;
 	}
 
 	/**
@@ -45,6 +47,7 @@ public class BuscaCega {
 		this.visitados = visitados;
 		this.estadoInicial = estadoInicial;
 		this.estadoAtual = estadoAtual;
+		this.maxFrontSize = 0;
 	}
 		
 	/**
@@ -60,7 +63,7 @@ public class BuscaCega {
 				return null;
 			}
 			if(estadoAtual.isCompleted()){
-				return new Solution(estadoAtual);
+				return new Solution(estadoAtual, visitados.size(), maxFrontSize);
 			}else{
 				aux = estadoAtual.expandir();
 				this.visitados.add(estadoAtual);
@@ -70,11 +73,14 @@ public class BuscaCega {
 						this.fronteira.inserir(e);
 					}
 				}
+				if(this.fronteira.size() > this.maxFrontSize){
+					this.maxFrontSize = this.fronteira.size();
+				}
 			}
 			estadoAtual = (Estado) ((Pilha) fronteira).top();
 		}while(!estadoAtual.isCompleted());
 		
-		return new Solution(estadoAtual);
+		return new Solution(estadoAtual, visitados.size(), maxFrontSize);
 	}
 		
 	/**
@@ -90,7 +96,7 @@ public class BuscaCega {
 				return null;
 			}
 			if(estadoAtual.isCompleted()){
-				return new Solution(estadoAtual);
+				return new Solution(estadoAtual, visitados.size(), maxFrontSize);
 			}else{
 				aux = estadoAtual.expandir();
 				this.visitados.add(estadoAtual);
@@ -101,11 +107,15 @@ public class BuscaCega {
 					}
 				}
 				
+				if(this.fronteira.size() > this.maxFrontSize){
+					this.maxFrontSize = this.fronteira.size();
+				}
+				
 			}
 			estadoAtual = ((Fila) this.fronteira).primeiroElemento();
 		}while(!estadoAtual.isCompleted());
 		
-		return new Solution(estadoAtual);
+		return new Solution(estadoAtual, visitados.size(), maxFrontSize);
 	}
 	
 	/**
